@@ -39,14 +39,17 @@ function updateNavOnLogin() {
 }
 
 function navSubmitStory(evt) {
+  //TODO: figure out why form is not hiding
+  // evt.preventDefault();
+  // hidePageComponents();
+  // $storyForm.show();
 
-  console.log($storyForm[0], typeof $storyForm);
 
-  if($storyForm[0].style.display === "none") {
-    $storyForm[0].style.display = "flex";
+  if($storyForm.style.display === "none") {
+    $storyForm.style.display = "flex";
 
   } else {
-    $storyForm[0].style.display = "none";
+    $storyForm.style.display = "none";
   }
 }
 

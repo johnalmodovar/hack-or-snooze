@@ -73,25 +73,27 @@ class StoryList {
    * Returns the new Story instance
    */
 
-
-  // let newStory = await storyList.addStory(currentUser,
-  //   {title: "Test", author: "Me", url: "http://meow.com"});
-
   // Need to pass in story object
   async addStory(user, {title, author, url}) { //user, newStory
-    // Add story to storyList
+    const token = user.loginToken;
 
-    // use the input object to call API, which will return info to construct new story.
-    const response = await fetch(`${BASE_URL}/stories`, {method:"POST", body: JSON.stringify({title, author, url}), headers: {"Content-Type": "application/json"}});
+    const response = await fetch(
+      `${BASE_URL}/stories`, {
+        method:"POST",
+        body: JSON.stringify( {token, story:{ title, author, url }} ),
+        headers: {"Content-Type": "application/json"}
+      });
 
     // {title: "Test", author: "Me", url: "http://meow.com"}
 
     const responseData = await response.json();
 
-    let newStoryToAdd = new Story(responseData); // all from the api call
+    let newStory = new Story(responseData); // all from the api call
 
     // also need to add to user list of stories.
+    this.stories.unshift(newStory);
 
+    return newStory;
   }
 
   /*

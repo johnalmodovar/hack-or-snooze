@@ -50,3 +50,26 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+function submitNewStory(evt) {
+  // grabbing the author name
+  const author = $("#create-author").val();
+  const title = $("#create-title").val();
+  const url = $("#create-story").val();
+  const user = currentUser.username;
+  const storyData = { author, title, url };
+
+  const story = await StoryList.addStory(user, storyData);
+
+  // grabbing story title
+  // grabbing story url
+  // grabbing username
+
+  // combine all these elements barring username
+}
+
+/*
+get the data from the form => addStory()
+
+afterwards, put story on page => append to html
+*/
