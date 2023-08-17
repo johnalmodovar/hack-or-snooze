@@ -76,6 +76,12 @@ class StoryList {
   async addStory( /* user, newStory */) {
     // UNIMPLEMENTED: complete this function!
   }
+
+  /*
+  create our query params
+  create response => get our object from api
+  save our data in a variable and create an instance from that
+  */
 }
 
 
