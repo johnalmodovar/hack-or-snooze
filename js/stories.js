@@ -20,7 +20,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
   return $(`
@@ -51,25 +51,24 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function submitNewStory(evt) {
+// TODO: Close the form once submit button is pressed.
+// Possible TODO: Check if the form values reset upon submit.
+// TODO: Want to prevent submit from hiding away stories list.
+/** Grabs form input for new story, creates story, and adds to story list. */
+async function submitNewStory(evt) {
+  // TODO: Refactor call + put stories on page to -> use generateStoryMarkup() and ...
+  evt.preventDefault();
   // grabbing the author name
   const author = $("#create-author").val();
   const title = $("#create-title").val();
-  const url = $("#create-story").val();
-  const user = currentUser.username;
+  const url = $("#create-url").val();
+  const user = currentUser;
   const storyData = { author, title, url };
 
-  const story = await StoryList.addStory(user, storyData);
+  const story = await storyList.addStory(user, storyData); // why is it undefined before refreshing?
+  console.log("STORY",story);
 
-  // grabbing story title
-  // grabbing story url
-  // grabbing username
-
-  // combine all these elements barring username
+  putStoriesOnPage();
 }
 
-/*
-get the data from the form => addStory()
-
-afterwards, put story on page => append to html
-*/
+$("#story-form").on('submit', submitNewStory);

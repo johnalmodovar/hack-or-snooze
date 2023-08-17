@@ -38,19 +38,12 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+/** Upon click, will display form to submit new story. */
 function navSubmitStory(evt) {
-  //TODO: figure out why form is not hiding
-  // evt.preventDefault();
-  // hidePageComponents();
-  // $storyForm.show();
+  evt.preventDefault();
+  hidePageComponents();
 
-
-  if($storyForm.style.display === "none") {
-    $storyForm.style.display = "flex";
-
-  } else {
-    $storyForm.style.display = "none";
-  }
+  $storyForm.show();
 }
 
 $("#nav-submit").on("click", navSubmitStory);

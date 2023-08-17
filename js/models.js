@@ -75,7 +75,9 @@ class StoryList {
 
   // Need to pass in story object
   async addStory(user, {title, author, url}) { //user, newStory
+    console.log("user", user);
     const token = user.loginToken;
+    console.log("USER", "TOKEN",user,token)
 
     const response = await fetch(
       `${BASE_URL}/stories`, {
@@ -84,23 +86,17 @@ class StoryList {
         headers: {"Content-Type": "application/json"}
       });
 
-    // {title: "Test", author: "Me", url: "http://meow.com"}
-
     const responseData = await response.json();
 
-    let newStory = new Story(responseData); // all from the api call
+    console.log("RESponse Data", responseData);
 
-    // also need to add to user list of stories.
+    let newStory = new Story(responseData.story); // all from the api call
+    console.log("New Story", newStory);
     this.stories.unshift(newStory);
 
     return newStory;
   }
 
-  /*
-  create our query params
-  create response => get our object from api
-  save our data in a variable and create an instance from that
-  */
 }
 
 
