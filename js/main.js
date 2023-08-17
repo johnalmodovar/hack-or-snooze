@@ -14,9 +14,10 @@ const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
 
-const $authorName =;
-const $storyTitle =;
-const $storyURL = ;
+const $storyForm = $("#story-form");
+const $authorName = $("#create-author");
+const $storyTitle = $("#create-title");
+const $storyURL = $("#create-story");
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
