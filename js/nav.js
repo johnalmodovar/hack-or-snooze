@@ -42,8 +42,8 @@ function updateNavOnLogin() {
 function navSubmitStory(evt) {
   evt.preventDefault();
   hidePageComponents();
-
   $storyForm.show();
+  $allStoriesList.show();
 }
 
 $("#nav-submit").on("click", navSubmitStory);

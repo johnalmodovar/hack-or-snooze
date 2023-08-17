@@ -23,9 +23,9 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
+
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).hostname;
   }
 }
 
@@ -75,9 +75,7 @@ class StoryList {
 
   // Need to pass in story object
   async addStory(user, {title, author, url}) { //user, newStory
-    console.log("user", user);
     const token = user.loginToken;
-    console.log("USER", "TOKEN",user,token)
 
     const response = await fetch(
       `${BASE_URL}/stories`, {
