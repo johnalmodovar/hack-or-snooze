@@ -41,7 +41,7 @@
         <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
       </div>
       <div class="main-nav-links hidden" style="display: block">
-        <a class="nav-link" href="#story-form" id="nav-submit">Submit</a>
+        <a class="nav-link" href="#" id="nav-submit">Submit</a>
       </div>
       <div class="nav-right">
         <a class="nav-link" href="#" id="nav-login">login/signup</a>
@@ -50,35 +50,36 @@
       </div>
     </nav>
 
+    <!-- Add Story Form -->
+    <form
+      action=""
+      class= ""
+      id="story-form"
+      style="display: flex"
+    >
+      <div>
+        <label for="create-author">Author</label>
+        <input id="create-author" required="" placeholder="Author Name" />
+      </div>
+      <div>
+        <label for="create-title">Story Title</label>
+        <input id="create-title" required="" placeholder="Title of Story" />
+      </div>
+      <div>
+        <label for="create-url">URL</label>
+        <input
+          id="create-url"
+          required=""
+          type="url"
+          placeholder="Enter Valid URL"
+        />
+      </div>
+      <button type="click">submit</button>
+      <hr />
+    </form>
+
     <!-- area for stories (all stories, user stories, favorites) -->
     <section class="stories-container container">
-      <!-- Add Story Form -->
-      <form
-        action="submit"
-        class="hidden"
-        id="story-form"
-        style="display: flex"
-      >
-        <div>
-          <label for="create-author">Author</label>
-          <input id="create-author" required="" placeholder="Author Name" />
-        </div>
-        <div>
-          <label for="create-title">Story Title</label>
-          <input id="create-title" required="" placeholder="Title of Story" />
-        </div>
-        <div>
-          <label for="create-url">URL</label>
-          <input
-            id="create-url"
-            required=""
-            type="url"
-            placeholder="Enter Valid URL"
-          />
-        </div>
-        <button type="submit">submit</button>
-        <hr />
-      </form>
 
       <!-- loading message (removed by JS after stories loaded) -->
       <div id="stories-loading-msg">Loading&hellip;</div>

@@ -33,12 +33,21 @@ function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
   $navLogin.hide();
+  $storyForm.hide(); // testing
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
 function navSubmitStory(evt) {
-  $storyForm.show();
+
+  console.log($storyForm[0], typeof $storyForm);
+
+  if($storyForm[0].style.display === "none") {
+    $storyForm[0].style.display = "flex";
+
+  } else {
+    $storyForm[0].style.display = "none";
+  }
 }
 
 $("#nav-submit").on("click", navSubmitStory);

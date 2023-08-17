@@ -90,7 +90,7 @@ class StoryList {
 
     let newStoryToAdd = new Story(responseData); // all from the api call
 
-    // also need to add to user
+    // also need to add to user list of stories.
 
   }
 
