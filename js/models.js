@@ -220,57 +220,64 @@ class User {
     }
   }
 
-async addFavorite(story) {
+// TODO: Make fetch methods for favorite and un-favorite.
+// TODO: Allow these methods to fetch the list of user favorites.
+// TODO: Need to implement other functions here:
+//        - toggle icons on and off => to favorite and unfavorite => to call on addFavorite and unfavorite
+// What happens when you sign out and want to do favorites?
+// Make sure favorites (and star-icon) is not showing if no user logged in
+// Look at login functions and make sure that the correct things are showing at pageload
+// Make sure that this doesn't work if no user logged in (no access to this whatsoever)
+// Change class for icon
 
-  // TODO: Make fetch methods for favorite and un-favorite.
-  // TODO: Allow these methods to fetch the list of user favorites.
-  // TODO: Need to implement other functions here:
-  //        - fetch to get data for favorites
-  //        - fetch to get data for unfavorites
-  // What happens when you sign out and want to do favorites?
-  // Make sure favorites (and star-icon) is not showing if no user logged in
-  // Look at login functions and make sure that the correct things are showing at pageload
-  // Make sure that this doesn't work if no user logged in (no access to this whatsoever)
+  async addFavorite(story) {
+    this.favorites.push(story);
 
-    // retrieve object for selected story based on click
+    await this.addFavoriteInAPI(currentUser, story.storyId);
+  }
 
-    // add this object to favorites array
-    currentUser.favorites.push(story);
-
-    // Do the same with the API (separate function)
-
-    // Extract story id (story.storyId) from story and call addFavoriteInAPI
-
-    // https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
-    // /users/username/favorites/storyId
-
-    // Change class for icon
-
-
-    // send request of favorite/unfavorite to API
-
-
+  async removeFavorite(story) {
 
   }
 
   async addFavoriteInAPI(currentUser, storyId) {
     const token = currentUser.loginToken;
     const username = currentUser.username;
-    const params = new URLSearchParams(username, storyId);
-    const response = await fetch(`${BASE_URL}/users/${username}/favorites/${storyId}`,
-      {method: "POST", body: JSON.stringify({token}), headers: {"Content-Type": "applications/json"}}
-      );
 
-    console.log("RESPONSE", response);
+    const response = await fetch(
+      `${BASE_URL}/users/${username}/favorites/${storyId}`,
+      {
+        method: "POST",
+         body: JSON.stringify({ token }),
+         headers: { "Content-Type": "applications/json" }
+      }
+    );
 
     const data = await response.json();
 
-    console.log("data", data);
-
     const updatedUser = await data.user;
-    console.log("UPDATED USER", updatedUser);
 
+    return updatedUser;
   }
 
+  async removeFavoriteInAPI (currentUser, storyId) {
+    const token = currentUser.loginToken;
+    const username = currentUser.username;
+
+    const response = await fetch(
+      `${BASE_URL}/users/${username}/favorites/${storyId}`,
+      {
+        method: "DELETE",
+         body: JSON.stringify({ token }),
+         headers: { "Content-Type": "applications/json" }
+      }
+    );
+
+    const data = await response.json();
+
+    const updatedUser = await data.user;
+
+    console.log("updated user:", updatedUser)
+  }
 
 }
