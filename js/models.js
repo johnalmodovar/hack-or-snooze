@@ -232,13 +232,15 @@ class User {
 
   async addFavorite(story) {
     this.favorites.push(story);
-
     await this.addFavoriteInAPI(currentUser, story.storyId);
   }
 
-  async removeFavorite(story) {
 
+  async removeFavorite(story) {
+    this.favorites.pop(story);
+    await this.removeFavoriteInAPI(currentUser, story.storyId);
   }
+
 
   async addFavoriteInAPI(currentUser, storyId) {
     const token = currentUser.loginToken;
@@ -254,7 +256,6 @@ class User {
     );
 
     const data = await response.json();
-
     const updatedUser = await data.user;
 
     return updatedUser;
@@ -274,10 +275,9 @@ class User {
     );
 
     const data = await response.json();
-
     const updatedUser = await data.user;
 
-    console.log("updated user:", updatedUser)
+    return updatedUser;
   }
 
 }

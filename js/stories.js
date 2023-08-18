@@ -25,7 +25,10 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
   return $(`
-      <li id="${story.storyId}">
+      <li id="${story.storyId}" class="story">
+        <span class="star">
+          <i class="bi bi-star"></i>
+        </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -72,5 +75,15 @@ async function submitNewStory(evt) {
   // $storyForm.trigger("reset");
   $storyForm.hide();
 }
+
+async function toggleFavorite() {
+  // Ask question about event delegation and how to select parent class
+  console.log("TOGGLE");
+
+  //
+
+}
+
+$('.stories-list').on('click', '.star', toggleFavorite);
 
 $("#story-form").on('submit', submitNewStory);
