@@ -19,9 +19,30 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-// TODO: Add star icon for favorites: // bi bi-star-fill
+// TODO: Need to have bi-star or bi-star-fill class populated in markup HTML
+//       based on whether or not we can find the current story in our
+//       favorites list.
 function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
+
+  // New logic to determine if favorited star should show for each markup instance.
+  const iconFavoriteClass = "bi bi-star";
+  // console.log("CURUSER",currentUser);
+
+  for (const favorite of currentUser.favorites) {
+    // console.log("FAV THEN STORY",favorite, story);
+
+    console.log(story, favorite);
+
+    if (story.storyId === favorite.storyId) {
+      console.log(story, favorite);
+      console.log("STORY IN FAVORITES, TURN ON THE STAR", story, favorite);
+    }
+
+  }
+
+  // if (story in currentUser.stories) iconFavoriteClass = "bi bi-star-fill";
+  // console.log(iconFavoriteClass);
 
   const hostName = story.getHostName();
   return $(`
@@ -79,19 +100,35 @@ async function submitNewStory(evt) {
 //TODO: Ask question about event delegation and how to select parent class
 async function toggleFavorite(evt) {
   const storyId = $(evt.target).closest(".story").get(0).id;
+  const story = $(evt.target).get(0);
+  const storyClass = story.className;
   const response = await StoryList.getStories(storyId);
   const storyList = await response.stories;
-  let story;
+  let curStory = null;
 
-  for (let stories of storyList) {
-    if (stories.storyId === storyId) {
-      story = stories;
-      break;
+  for (let story of storyList) {
+    if (story.storyId === storyId) {
+      curStory = story;
     }
   }
 
-  console.log(story)
-  //  await currentUser.addFavorite(story);
+  // console.log("EVT", evt.target);
+
+  // We need to determine add or remove favorite. Then do this.
+  // Figure out if it's a favorite
+  //    1) Check favorites list for the story
+  //    2) Check class of parent for bi-star -> bi-star to bi-star-fill
+
+  if ($(evt.target).hasClass("bi-star-fill") ) {
+    console.log("REMOVE FAV");
+    currentUser.removeFavorite(curStory);
+
+  } else {
+    console.log("ADD FAV");
+    currentUser.addFavorite(curStory);
+
+  }
+  $(evt.target).toggleClass("bi-star-fill bi-star");
 }
 
 $('.stories-list').on('click', '.star', toggleFavorite);
