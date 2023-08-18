@@ -19,31 +19,20 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-// TODO: Need to have bi-star or bi-star-fill class populated in markup HTML
-//       based on whether or not we can find the current story in our
-//       favorites list.
 function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
 
-  // New logic to determine if favorited star should show for each markup instance.
   let iconFavoriteClass = "bi bi-star";
-  // console.log("CURUSER",currentUser);
+
   for (const favorite of currentUser.favorites) {
-    // console.log("FAV THEN STORY",favorite, story);
-    console.log(story, favorite);
 
     if (story.storyId === favorite.storyId) {
-      console.log(story, favorite);
       iconFavoriteClass = "bi bi-star-fill";
-      console.log("STORY IN FAVORITES, TURN ON THE STAR", story, favorite);
     }
-
   }
 
-  // if (story in currentUser.stories) iconFavoriteClass = "bi bi-star-fill";
-  // console.log(iconFavoriteClass);
-
   const hostName = story.getHostName();
+
   return $(`
       <li id="${story.storyId}" class="story">
         <span class="star">
@@ -96,6 +85,8 @@ async function submitNewStory(evt) {
   $storyForm.hide();
 }
 
+$("#story-form").on('submit', submitNewStory);
+
 //TODO: Ask question about event delegation and how to select parent class
 async function toggleFavorite(evt) {
   const storyId = $(evt.target).closest(".story").get(0).id;
@@ -111,13 +102,6 @@ async function toggleFavorite(evt) {
     }
   }
 
-  // console.log("EVT", evt.target);
-
-  // We need to determine add or remove favorite. Then do this.
-  // Figure out if it's a favorite
-  //    1) Check favorites list for the story
-  //    2) Check class of parent for bi-star -> bi-star to bi-star-fill
-
   if ($(evt.target).hasClass("bi-star-fill") ) {
     console.log("REMOVE FAV");
     currentUser.removeFavorite(curStory);
@@ -132,4 +116,6 @@ async function toggleFavorite(evt) {
 
 $('.stories-list').on('click', '.star', toggleFavorite);
 
-$("#story-form").on('submit', submitNewStory);
+function showFavorites() {
+
+}

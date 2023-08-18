@@ -39,11 +39,21 @@ function updateNavOnLogin() {
 }
 
 /** Upon click, will display form to submit new story. */
-function navSubmitStory(evt) {
+function navShowSubmitForm(evt) {
   evt.preventDefault();
   hidePageComponents();
   $storyForm.show();
   $allStoriesList.show();
 }
 
-$("#nav-submit").on("click", navSubmitStory);
+$("#nav-submit").on("click", navShowSubmitForm);
+
+function navShowFavorites(evt) {
+  evt.preventDefault();
+  hidePageComponents();
+
+  //TODO: add global variable for favorite stories to show/hide when button is clicked
+  $favoriteStoriesList.show();
+}
+
+$("#nav-favorites").on("click", navShowFavorites);

@@ -12,6 +12,7 @@ const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
 const $storyForm = $("#story-form");
+const $favoriteStoriesList = $("#favorite-stories-list");
 
 
 /** To make it easier for individual components to show just themselves, this
