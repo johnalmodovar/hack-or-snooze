@@ -64,6 +64,23 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+/** Gets list of User's favorite stories from server,
+ *  generates their HTML, and puts on page. */
+
+function putFavoritesOnPage() {
+  console.debug("putFavoritesOnPage");
+
+  $favoriteStoriesList.empty();
+
+  // loop through all of our stories and generate HTML for them
+  for (let favorite of currentUser.favorites) {
+    const $story = generateStoryMarkup(favorite);
+    $favoriteStoriesList.append($story);
+  }
+
+  $favoriteStoriesList.show();
+}
+
 /** Grabs form input for new story, creates story, and adds to story list. */
 async function submitNewStory(evt) {
   evt.preventDefault();
@@ -106,15 +123,40 @@ async function toggleFavorite(evt) {
     }
   }
 
+  console.log("Current User FAVORITES", currentUser.favorites);
+
   if ($(evt.target).hasClass("bi-star-fill") ) {
     //FIXME: put removeFavoriteToPage logic here
+    console.log("EVT.T", evt.target.closest(".story"));
     currentUser.removeFavorite(curStory);
-    removeFavoriteFromPage(curStory);
+
+    // FIXME:
+    // $favoriteStoriesList.remove(curStory); // Removes selected story from favorites
+    // $favoriteStoriesList.remove(evt.target.closest(".story")); // Removes selected story from favorites
+    console.log("CURRENT USER", currentUser);
+
+
+    // $favoriteStoriesList
+
+    console.log("Current User FAVORITES AFTER REMOVE", currentUser.favorites);
+    putFavoritesOnPage();
 
   } else {
     //FIXME: put addFavoriteToPage logic here
     currentUser.addFavorite(curStory);
-    addFavoriteToPage(curStory); // Add a single markup instance to $favoritesList.
+    console.log("EVT.T", evt.target.closest(".story"));
+
+    // Call markup for prepend
+
+
+    // $(evt.target).closest(".story").prepend(storyMarkup);  // Adds selected story to favorites
+
+    // visual
+    const $storyMarkup = generateStoryMarkup(curStory);
+    $favoriteStoriesList.prepend($storyMarkup);  // Adds selected story to favorites
+
+
+    console.log("Current User FAVORITES AFTER ADD", currentUser.favorites);
 
   }
   $(evt.target).toggleClass("bi-star-fill bi-star");
@@ -147,13 +189,12 @@ function addFavoriteToPage(story) {
   //FIXME: move to another function
   const $newFavoriteStory = generateStoryMarkup(story).get(0);
   // console.log("#newFavStory", $newFavoriteStory, "$favoriteStoriesList", $favoriteStoriesList.get(0), typeof $favoriteStoriesList.get(0));
-  $favoriteStoriesList.get(0).prepend($newFavoriteStory);
 }
 
 
 
 function removeFavoriteFromPage(story) {
-  // console.log("REMOVE", $favoriteStoriesList, story);
+  console.log("REMOVE", $favoriteStoriesList, story);
   $favoriteStoriesList.get(0).remove(story);
    //FIXME: use evt.target to remove it from page
   //FIXME: move this into another function
