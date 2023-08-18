@@ -80,7 +80,6 @@ async function toggleFavorite() {
   // Ask question about event delegation and how to select parent class
   console.log("TOGGLE");
 
-  //
 
 }
 
