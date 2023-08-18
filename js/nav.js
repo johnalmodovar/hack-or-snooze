@@ -39,6 +39,7 @@ function updateNavOnLogin() {
 }
 
 /** Upon click, will display form to submit new story. */
+
 function navShowSubmitForm(evt) {
   evt.preventDefault();
   hidePageComponents();
@@ -47,6 +48,8 @@ function navShowSubmitForm(evt) {
 }
 
 $("#nav-submit").on("click", navShowSubmitForm);
+
+/** Shows favorites list when Favorites in nav is clicked. */
 
 function navShowFavorites(evt) {
   evt.preventDefault();

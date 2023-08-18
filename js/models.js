@@ -23,7 +23,6 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-
   getHostName() {
     return new URL(this.url).hostname;
   }
@@ -101,7 +100,7 @@ class StoryList {
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
  */
-// TODO: Create functions for addFavorite, removeFavorite, fetchFavorite...possibly others.
+
 class User {
   /** Make user instance from obj of user data and a token:
    *   - {username, name, createdAt, favorites[], ownStories[]}
@@ -220,28 +219,25 @@ class User {
     }
   }
 
-// TODO: Make fetch methods for favorite and un-favorite.
-// TODO: Allow these methods to fetch the list of user favorites.
-// TODO: Need to implement other functions here:
-//        - toggle icons on aind off => to favorite and unfavorite => to call on addFavorte and unfavorite
-// What happens when you sign out and want to do favorites?
-// Make sure favorites (and star-icon) is not showing if no user logged in
-// Look at login functions and make sure that the correct things are showing at pageload
-// Make sure that this doesn't work if no user logged in (no access to this whatsoever)
-// Change class for icon
-
+  /** After we get the authorization from the API, push the story being favorited
+   * to the favorites array.
+   */
 
   async addFavorite(story) {
     this.favorites.push(story);
     await this.addFavoriteInAPI(currentUser, story.storyId);
   }
 
+  /** After getting authorization from the API, take the story out after being
+   * unfavorited.
+   */
 
   async removeFavorite(story) {
-    this.favorites.pop(story);
+    this.favorites = this.favorites.filter( s => s.storyId !== story.storyId );
     await this.removeFavoriteInAPI(currentUser, story.storyId);
   }
 
+  /** Fetches the authorization for favoriting a story. */
 
   async addFavoriteInAPI(currentUser, storyId) {
     const token = currentUser.loginToken;
@@ -261,6 +257,8 @@ class User {
 
     return updatedUser;
   }
+
+/** Fetches authorization to unfavorite a story. */
 
   async removeFavoriteInAPI (currentUser, storyId) {
     const token = currentUser.loginToken;
@@ -282,3 +280,19 @@ class User {
   }
 
 }
+
+/*
+TODO:
+  - fetch data to favorite or unfavorite a story => two separate functions
+  - after data has been fetched, either add or remove the story on the favorites array => separate functions
+  - if the story has been favorited: FIXME:
+    - attach the story to the array list FIXME:
+  - if the story has been unfavorited: FIXME:
+    - remove story from array list FIXME:
+
+  - for navbar:
+    - have a button to show favorites FIXME:
+    - only favorited stories will show on this page FIXME:
+      => have a container for favorite stories and have it only show FIXME:
+        - hide the that shows all stories FIXME:
+*/

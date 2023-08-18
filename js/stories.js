@@ -87,7 +87,11 @@ async function submitNewStory(evt) {
 
 $("#story-form").on('submit', submitNewStory);
 
-//TODO: Ask question about event delegation and how to select parent class
+/** when clicked on the star icon, it calls on functions to grab API for either
+ * deleting or adding favorites, and adding or removing the story from the
+ * favorites array.
+ */
+
 async function toggleFavorite(evt) {
   const $storyId = $(evt.target).closest(".story").get(0).id;
   const story = $(evt.target).get(0);
@@ -103,12 +107,12 @@ async function toggleFavorite(evt) {
   }
 
   if ($(evt.target).hasClass("bi-star-fill") ) {
-    console.log("REMOVE FAV", currentUser);
+    //FIXME: put removeFavoriteToPage logic here
     currentUser.removeFavorite(curStory);
     removeFavoriteFromPage(curStory);
 
   } else {
-    console.log("ADD FAV");
+    //FIXME: put addFavoriteToPage logic here
     currentUser.addFavorite(curStory);
     addFavoriteToPage(curStory); // Add a single markup instance to $favoritesList.
 
@@ -118,29 +122,45 @@ async function toggleFavorite(evt) {
 
 $('.stories-list').on('click', '.star', toggleFavorite);
 
+/** Putting all of the favorites into the DOM */
+
 function putFavoritesOnPage() {
   console.debug("putFavoritesOnPage");
 
-  console.log("Current User", currentUser, "$favoriteStories", $favoriteStoriesList);
+  // console.log("Current User", currentUser, "$favoriteStories", $favoriteStoriesList);
   $favoriteStoriesList.empty();
 
+  console.log("am i working")
+  console.log(currentUser.favorites)
+
+  //FIXME: find out why this loop is not running
   // loop through all of our stories and generate HTML for them
   for (let favorite of currentUser.favorites) {
     const $curFavorite = generateStoryMarkup(favorite);
-    console.log("CUR Fav",$curFavorite)
     $favoriteStoriesList.append($curFavorite);
   }
 }
 
-function addFavoriteToPage(story) {
+/** Adds the favorited story into the favorites section on the DOM */
 
+function addFavoriteToPage(story) {
+  //FIXME: move to another function
   const $newFavoriteStory = generateStoryMarkup(story).get(0);
-  console.log("#newFavStory", $newFavoriteStory, "$favoriteStoriesList", $favoriteStoriesList.get(0), typeof $favoriteStoriesList.get(0));
+  // console.log("#newFavStory", $newFavoriteStory, "$favoriteStoriesList", $favoriteStoriesList.get(0), typeof $favoriteStoriesList.get(0));
   $favoriteStoriesList.get(0).prepend($newFavoriteStory);
 }
 
+
+
 function removeFavoriteFromPage(story) {
-  console.log("REMOVE", $favoriteStoriesList, story);
+  // console.log("REMOVE", $favoriteStoriesList, story);
   $favoriteStoriesList.get(0).remove(story);
-  console.log("After",$favoriteStoriesList);
+   //FIXME: use evt.target to remove it from page
+  //FIXME: move this into another function
+
+  // console.log("After",$favoriteStoriesList);
 }
+
+/*
+
+*/
