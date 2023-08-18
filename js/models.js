@@ -223,12 +223,13 @@ class User {
 // TODO: Make fetch methods for favorite and un-favorite.
 // TODO: Allow these methods to fetch the list of user favorites.
 // TODO: Need to implement other functions here:
-//        - toggle icons on and off => to favorite and unfavorite => to call on addFavorite and unfavorite
+//        - toggle icons on aind off => to favorite and unfavorite => to call on addFavorte and unfavorite
 // What happens when you sign out and want to do favorites?
 // Make sure favorites (and star-icon) is not showing if no user logged in
 // Look at login functions and make sure that the correct things are showing at pageload
 // Make sure that this doesn't work if no user logged in (no access to this whatsoever)
 // Change class for icon
+
 
   async addFavorite(story) {
     this.favorites.push(story);

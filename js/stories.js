@@ -76,11 +76,22 @@ async function submitNewStory(evt) {
   $storyForm.hide();
 }
 
-async function toggleFavorite() {
-  // Ask question about event delegation and how to select parent class
-  console.log("TOGGLE");
+//TODO: Ask question about event delegation and how to select parent class
+async function toggleFavorite(evt) {
+  const storyId = $(evt.target).closest(".story").get(0).id;
+  const response = await StoryList.getStories(storyId);
+  const storyList = await response.stories;
+  let story;
 
+  for (let stories of storyList) {
+    if (stories.storyId === storyId) {
+      story = stories;
+      break;
+    }
+  }
 
+  console.log(story)
+  //  await currentUser.addFavorite(story);
 }
 
 $('.stories-list').on('click', '.star', toggleFavorite);
