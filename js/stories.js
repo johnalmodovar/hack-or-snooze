@@ -89,26 +89,28 @@ $("#story-form").on('submit', submitNewStory);
 
 //TODO: Ask question about event delegation and how to select parent class
 async function toggleFavorite(evt) {
-  const storyId = $(evt.target).closest(".story").get(0).id;
+  const $storyId = $(evt.target).closest(".story").get(0).id;
   const story = $(evt.target).get(0);
-  const storyClass = story.className;
-  const response = await StoryList.getStories(storyId);
+  const storyClass = story.className; // remove?
+  const response = await StoryList.getStories($storyId);
   const storyList = await response.stories;
   let curStory = null;
 
   for (let story of storyList) {
-    if (story.storyId === storyId) {
+    if (story.storyId === $storyId) {
       curStory = story;
     }
   }
 
   if ($(evt.target).hasClass("bi-star-fill") ) {
-    console.log("REMOVE FAV");
+    console.log("REMOVE FAV", currentUser);
     currentUser.removeFavorite(curStory);
+    removeFavoriteFromPage(curStory);
 
   } else {
     console.log("ADD FAV");
     currentUser.addFavorite(curStory);
+    addFavoriteToPage(curStory); // Add a single markup instance to $favoritesList.
 
   }
   $(evt.target).toggleClass("bi-star-fill bi-star");
@@ -116,6 +118,29 @@ async function toggleFavorite(evt) {
 
 $('.stories-list').on('click', '.star', toggleFavorite);
 
-function showFavorites() {
+function putFavoritesOnPage() {
+  console.debug("putFavoritesOnPage");
 
+  console.log("Current User", currentUser, "$favoriteStories", $favoriteStoriesList);
+  $favoriteStoriesList.empty();
+
+  // loop through all of our stories and generate HTML for them
+  for (let favorite of currentUser.favorites) {
+    const $curFavorite = generateStoryMarkup(favorite);
+    console.log("CUR Fav",$curFavorite)
+    $favoriteStoriesList.append($curFavorite);
+  }
+}
+
+function addFavoriteToPage(story) {
+
+  const $newFavoriteStory = generateStoryMarkup(story).get(0);
+  console.log("#newFavStory", $newFavoriteStory, "$favoriteStoriesList", $favoriteStoriesList.get(0), typeof $favoriteStoriesList.get(0));
+  $favoriteStoriesList.get(0).prepend($newFavoriteStory);
+}
+
+function removeFavoriteFromPage(story) {
+  console.log("REMOVE", $favoriteStoriesList, story);
+  $favoriteStoriesList.get(0).remove(story);
+  console.log("After",$favoriteStoriesList);
 }
