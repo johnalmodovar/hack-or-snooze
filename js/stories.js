@@ -26,16 +26,15 @@ function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
 
   // New logic to determine if favorited star should show for each markup instance.
-  const iconFavoriteClass = "bi bi-star";
+  let iconFavoriteClass = "bi bi-star";
   // console.log("CURUSER",currentUser);
-
   for (const favorite of currentUser.favorites) {
     // console.log("FAV THEN STORY",favorite, story);
-
     console.log(story, favorite);
 
     if (story.storyId === favorite.storyId) {
       console.log(story, favorite);
+      iconFavoriteClass = "bi bi-star-fill";
       console.log("STORY IN FAVORITES, TURN ON THE STAR", story, favorite);
     }
 
@@ -48,7 +47,7 @@ function generateStoryMarkup(story) {
   return $(`
       <li id="${story.storyId}" class="story">
         <span class="star">
-          <i class="bi bi-star"></i>
+          <i class="${iconFavoriteClass}"></i>
         </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
