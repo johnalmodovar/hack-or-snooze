@@ -19,6 +19,7 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
+// TODO: Add star icon for favorites: // bi bi-star-fill
 function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
 

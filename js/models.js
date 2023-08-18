@@ -101,7 +101,7 @@ class StoryList {
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
  */
-
+// TODO: Create functions for addFavorite, removeFavorite, fetchFavorite...possibly others.
 class User {
   /** Make user instance from obj of user data and a token:
    *   - {username, name, createdAt, favorites[], ownStories[]}
@@ -219,4 +219,58 @@ class User {
       return null;
     }
   }
+
+async addFavorite(story) {
+
+  // TODO: Make fetch methods for favorite and un-favorite.
+  // TODO: Allow these methods to fetch the list of user favorites.
+  // TODO: Need to implement other functions here:
+  //        - fetch to get data for favorites
+  //        - fetch to get data for unfavorites
+  // What happens when you sign out and want to do favorites?
+  // Make sure favorites (and star-icon) is not showing if no user logged in
+  // Look at login functions and make sure that the correct things are showing at pageload
+  // Make sure that this doesn't work if no user logged in (no access to this whatsoever)
+
+    // retrieve object for selected story based on click
+
+    // add this object to favorites array
+    currentUser.favorites.push(story);
+
+    // Do the same with the API (separate function)
+
+    // Extract story id (story.storyId) from story and call addFavoriteInAPI
+
+    // https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId
+    // /users/username/favorites/storyId
+
+    // Change class for icon
+
+
+    // send request of favorite/unfavorite to API
+
+
+
+  }
+
+  async addFavoriteInAPI(currentUser, storyId) {
+    const token = currentUser.loginToken;
+    const username = currentUser.username;
+    const params = new URLSearchParams(username, storyId);
+    const response = await fetch(`${BASE_URL}/users/${username}/favorites/${storyId}`,
+      {method: "POST", body: JSON.stringify({token}), headers: {"Content-Type": "applications/json"}}
+      );
+
+    console.log("RESPONSE", response);
+
+    const data = await response.json();
+
+    console.log("data", data);
+
+    const updatedUser = await data.user;
+    console.log("UPDATED USER", updatedUser);
+
+  }
+
+
 }
