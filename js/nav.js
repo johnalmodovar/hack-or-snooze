@@ -54,6 +54,7 @@ $("#nav-submit").on("click", navShowSubmitForm);
 function navShowFavorites(evt) {
   evt.preventDefault();
   hidePageComponents();
+  putFavoritesOnPage();
 
   //TODO: add global variable for favorite stories to show/hide when button is clicked
   $favoriteStoriesList.show();

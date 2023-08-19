@@ -62,6 +62,7 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+  $favoriteStoriesList.hide();
 }
 
 /** Gets list of User's favorite stories from server,
@@ -116,6 +117,10 @@ async function toggleFavorite(evt) {
   const response = await StoryList.getStories($storyId);
   const storyList = await response.stories;
   let curStory = null;
+
+  console.log("current user favorites", currentUser.favorites)
+  console.log("story", story)
+
 
   for (let story of storyList) {
     if (story.storyId === $storyId) {
