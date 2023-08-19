@@ -72,7 +72,6 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  // Need to pass in story object
   async addStory(user, {title, author, url}) { //user, newStory
     const token = user.loginToken;
 
@@ -278,21 +277,4 @@ class User {
 
     return updatedUser;
   }
-
 }
-
-/*
-TODO:
-  - fetch data to favorite or unfavorite a story => two separate functions
-  - after data has been fetched, either add or remove the story on the favorites array => separate functions
-  - if the story has been favorited: FIXME:
-    - attach the story to the array list FIXME:
-  - if the story has been unfavorited: FIXME:
-    - remove story from array list FIXME:
-
-  - for navbar:
-    - have a button to show favorites FIXME:
-    - only favorited stories will show on this page FIXME:
-      => have a container for favorite stories and have it only show FIXME:
-        - hide the that shows all stories FIXME:
-*/

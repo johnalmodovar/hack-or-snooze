@@ -45,6 +45,7 @@ function navShowSubmitForm(evt) {
   hidePageComponents();
   $storyForm.show();
   $allStoriesList.show();
+  $favoriteStoriesList.hide();
 }
 
 $("#nav-submit").on("click", navShowSubmitForm);
@@ -56,7 +57,6 @@ function navShowFavorites(evt) {
   hidePageComponents();
   putFavoritesOnPage();
 
-  //TODO: add global variable for favorite stories to show/hide when button is clicked
   $favoriteStoriesList.show();
 }
 

@@ -13,7 +13,6 @@ async function login(evt) {
   console.debug("login", evt);
   evt.preventDefault();
 
-  // grab the username and password
   const username = $("#login-username").val();
   const password = $("#login-password").val();
 
