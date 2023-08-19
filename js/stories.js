@@ -24,6 +24,7 @@ function generateStoryMarkup(story) {
 
   let iconFavoriteClass = "bi bi-star";
 
+  // TODO: Look at solution code for conditional logic here -> check for no-logged in user case
   for (const favorite of currentUser.favorites) {
 
     if (story.storyId === favorite.storyId) {
@@ -107,17 +108,17 @@ $("#story-form").on('submit', submitNewStory);
 
 /** when clicked on the star icon, it calls on functions to grab API for either
  * deleting or adding favorites, and adding or removing the story from the
- * favorites array.
+ * User's favorites array.
  */
 
 async function toggleFavorite(evt) {
-  const $storyId = $(evt.target).closest(".story").get(0).id;
-  const response = await StoryList.getStories($storyId);
+  const storyId = $(evt.target).closest(".story").get(0).id;
+  const response = await StoryList.getStories(); // Don't need to reference the backend, we already have it.
   const storyList = await response.stories;
   let curStory = null;
 
   for (let story of storyList) {
-    if (story.storyId === $storyId) {
+    if (story.storyId === storyId) {
       curStory = story;
     }
   }
@@ -125,7 +126,7 @@ async function toggleFavorite(evt) {
   if ($(evt.target).hasClass("bi-star-fill") ) {
     currentUser.removeFavorite(curStory);
 
-    putFavoritesOnPage();
+    putFavoritesOnPage(); // We can just add/remove the single element instead of reloading.
 
   } else {
     currentUser.addFavorite(curStory);
@@ -153,16 +154,3 @@ function putFavoritesOnPage() {
     $favoriteStoriesList.append($curFavorite);
   }
 }
-
-/** Adds the favorited story into the favorites section on the DOM */
-
-// function addFavoriteToPage(story) {
-//   const $newFavoriteStory = generateStoryMarkup(story).get(0);
-// }
-
-
-
-// function removeFavoriteFromPage(story) {
-//   console.log("REMOVE", $favoriteStoriesList, story);
-//   $favoriteStoriesList.get(0).remove(story);
-// }

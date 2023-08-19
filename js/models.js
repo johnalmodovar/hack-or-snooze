@@ -218,13 +218,14 @@ class User {
     }
   }
 
+  // TODO: Make docstrings less like pseudo-code, and more input -> output
   /** After we get the authorization from the API, push the story being favorited
    * to the favorites array.
    */
 
   async addFavorite(story) {
     this.favorites.push(story);
-    await this.addFavoriteInAPI(currentUser, story.storyId);
+    await this.addFavoriteInAPI(currentUser, story.storyId); // Can use "this" instead of currentUser as an argument
   }
 
   /** After getting authorization from the API, take the story out after being
@@ -236,9 +237,9 @@ class User {
     await this.removeFavoriteInAPI(currentUser, story.storyId);
   }
 
-  /** Fetches the authorization for favoriting a story. */
+  /** Update API with favorite */
 
-  async addFavoriteInAPI(currentUser, storyId) {
+  async addFavoriteInAPI(currentUser, storyId) { // could remove current user as argument and use "this" to reference it instead
     const token = currentUser.loginToken;
     const username = currentUser.username;
 
@@ -257,7 +258,7 @@ class User {
     return updatedUser;
   }
 
-/** Fetches authorization to unfavorite a story. */
+  /** Update API with un-favorite */
 
   async removeFavoriteInAPI (currentUser, storyId) {
     const token = currentUser.loginToken;
